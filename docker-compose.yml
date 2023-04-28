@@ -1,0 +1,22 @@
+version: '3'
+services:
+  nuxt:
+    container_name: chatbot-front
+    build:
+      context: ./chatbot-front
+      dockerfile: ./Dockerfile
+    ports:
+      - 8002:3000 
+    entrypoint:
+      - npm
+      - run
+      - dev
+  chatbot-backend:
+    container_name: chatbot-backend
+    build:
+      context: ./chatbot
+      dockerfile: ./Dockerfile
+    ports: 
+      - 8001:8001
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8001"
